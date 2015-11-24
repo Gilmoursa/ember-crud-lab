@@ -65,21 +65,21 @@ Now, we'll build a component which will be responsible for rendering an individu
 * Now let's build out the ability of our component to toggle between editing states. In other words, let's get our component to be able to show a completed resource *or* a form to edit the given resource, based on the user's double clicking anywhere on our component. 
 * In `app/components/show-resource.js`, define a property, `isEditing` and set it to `false`. 
 * Now we'll use this property to add some logic to our component templae. In `app/templates/components/show-resource.js`: use a Handlerbars `{{if}}` statement to say that: if the `{{isEditing}}` property is `true`, show a form for editing the resource. Use `{{}}` input helpers to build your form. `{{else}}`, show the completed resource. 
-* How will a user toggle between seeing the editing form and seeing the completed resource? We want them to be able to double clikc on the component to switch to viewing the edit form. In `app/components/show-resource.js`, define a property, `doubleClick`, and set it to a function that toggles the `isEditing` property. Great, now we can toggle back and forth between seeing completed resource and seeing our form. But how will we actually make and persist edits to the resource? We'll use Ember closure actions!
+* How will a user toggle between seeing the editing form and seeing the completed resource? We want them to be able to double click on the component to switch to viewing the edit form. In `app/components/show-resource.js`, define a property, `doubleClick`, and set it to a function that toggles the `isEditing` property. Great, now we can toggle back and forth between seeing completed resource and seeing our form. But how will we actually make and persist edits to the resource? We'll use Ember closure actions!
 
 
 ## Part VII: Building Our Closure Action
 
-* Create a resources controller. In `app/controllers/resources.js` we will define an action called `update`, that will be responsible for persisting changes to the resource.
-* Once you define the `updat` action in controller, we can pass it down into our component. 
+* Create a resources controller. In `app/controllers/resources/resource.js` we will define an action called `update`, that will be responsible for persisting changes to the resource.
+* Once you define the `update` action in controller, we can pass it down into our component. 
 * On the resource show page, `app/templates/resources/resource.hbs`, pass the `update` action into the component using the following synatx:
 
 ```
 {{show-resource update=(action "update") title=model.title url=model.url topic=model.topic description=model.description}}
 ```
 
-* Lastly, we need to tell our component how to call that `upate` action and how to handle that action. 
-* In the `show-resource` component, add a button to the buttom of your editing form that contains the `{{action update}}` helper. 
+* Lastly, we need to tell our component how to call that `update` action and how to handle that action. 
+* In the `show-resource` component, add a button to the bottom of your editing form that contains the `{{action update}}` helper. 
 * In `app/components/show-resource.js`, define an `update` action that triggers the closure action, using `this.attrs.update()` *and* toggles the `isEditing` state (once the user hits the save button, they should no longer see the editing form).
 
 That's it!
